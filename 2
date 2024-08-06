@@ -1,0 +1,17 @@
+#!/bin/bash
+
+if [ ! -d "$1" ]; then
+  echo "Директория '$1' не существует!"
+  exit 1
+fi
+
+for file in "$1"/*; do
+  owner=$(stat -c %U "$file")
+
+  mkdir -p "$1/$owner"
+
+  cp "$file" "$1/$owner"
+
+done
+
+echo "Сортировка файлов по владельцам завершена."
